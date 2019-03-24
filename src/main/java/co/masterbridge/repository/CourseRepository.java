@@ -23,6 +23,12 @@ public class CourseRepository {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    public Collection<Course> getAll() {
+        return jdbcTemplate.query(
+                "select * from courses",
+                (rs1, rowNum) -> getCourse(rs1));
+    }
+
     public Collection<Course> find(CourseSearch courseSearch) {
 
         String sql = "select * from courses";
@@ -32,12 +38,6 @@ public class CourseRepository {
 
         return jdbcTemplate.query(sql, (rs1, rowNum) -> getCourse(rs1));
 
-    }
-
-    public Collection<Course> getAll() {
-        return jdbcTemplate.query(
-                "select * from courses",
-                (rs1, rowNum) -> getCourse(rs1));
     }
 
     public Course getCourse(ResultSet rs) throws SQLException {
