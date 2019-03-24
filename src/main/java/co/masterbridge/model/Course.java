@@ -2,8 +2,8 @@ package co.masterbridge.model;
 
 public class Course {
 
-
     private long id;
+    //TODO: school_id
     private String country;
     private String name;
     private String city;
