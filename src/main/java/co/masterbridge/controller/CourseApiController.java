@@ -1,9 +1,12 @@
 package co.masterbridge.controller;
 
+import co.masterbridge.model.Course;
+import co.masterbridge.model.CourseSearch;
 import co.masterbridge.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
 
 @RestController
 @RequestMapping(path = "/api/courses")
@@ -16,5 +19,13 @@ public class CourseApiController {
         this.courseService = courseService;
     }
 
+    @RequestMapping(method = RequestMethod.GET)
+    public Collection<Course> getCourseList(){
+        return courseService.getAll();
+    }
 
+    @RequestMapping(method = RequestMethod.POST, path = "/find")
+    public Collection<Course> findGames(@RequestBody CourseSearch courseSearch) {
+        return courseService.find(courseSearch);
+    }
 }

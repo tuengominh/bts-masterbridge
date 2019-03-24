@@ -7,7 +7,7 @@ public class Course {
    private String country;
    private String courseName;
    private String city;
-   private String discipline;
+   private String fieldOfStudy;
    private long tuition;
    private Attendance attendance = Attendance.FULLTIME;
    private Duration duration = Duration.ONE;
@@ -16,12 +16,12 @@ public class Course {
 
     }
 
-    public Course(long id, String country, String courseName, String city, String discipline, long tuition, Attendance attendance, Duration duration) {
+    public Course(long id, String country, String courseName, String city, String fieldOfStudy, long tuition, Attendance attendance, Duration duration) {
         this.id = id;
         this.country = country;
         this.courseName = courseName;
         this.city = city;
-        this.discipline = discipline;
+        this.fieldOfStudy = fieldOfStudy;
         this.tuition = tuition;
         this.attendance = attendance;
         this.duration = duration;
@@ -80,12 +80,12 @@ public class Course {
         this.city = city;
     }
 
-    public String getDiscipline() {
-        return discipline;
+    public String getFieldOfStudy() {
+        return fieldOfStudy;
     }
 
-    public void setDiscipline(String discipline) {
-        this.discipline = discipline;
+    public void setFieldOfStudy(String fieldOfStudy) {
+        this.fieldOfStudy = fieldOfStudy;
     }
 
     public long getTuition() {
