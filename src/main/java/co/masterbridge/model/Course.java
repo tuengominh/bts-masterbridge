@@ -3,49 +3,32 @@ package co.masterbridge.model;
 public class Course {
 
 
-   private long id;
-   private String country;
-   private String courseName;
-   private String city;
-   private String fieldOfStudy;
-   private long tuition;
-   private Attendance attendance = Attendance.FULLTIME;
-   private Duration duration = Duration.ONE;
+    private long id;
+    private String country;
+    private String name;
+    private String city;
+    private String fieldOfStudy; //TODO: case sensitive & change to enum type (?)
+    private int tuition;
+    private Attendance attendance;
+    private Duration duration;
+    //TODO: Curriculum (binary file), Images (binary file), Teacher's profiles (?), List of Alumnus (Users studying at that school)
+
+    public enum Duration {SIX_MONTHS, NINE_MONTHS, ONE_YEAR, TWO_YEAR} //TODO: How to store integers in enum manner?
+
+    public enum Attendance {FULL_TIME, PART_TIME, ONLINE}
 
     public Course() {
-
     }
 
-    public Course(long id, String country, String courseName, String city, String fieldOfStudy, long tuition, Attendance attendance, Duration duration) {
+    public Course(long id, String country, String name, String city, String fieldOfStudy, int tuition, Attendance attendance, Duration duration) {
         this.id = id;
         this.country = country;
-        this.courseName = courseName;
+        this.name = name;
         this.city = city;
         this.fieldOfStudy = fieldOfStudy;
         this.tuition = tuition;
         this.attendance = attendance;
         this.duration = duration;
-    }
-
-    public enum Duration {
-        ONE ("One"), TWO ("Two");
-
-        private String initialString;
-
-        Duration(String initialString) {
-            this.initialString = initialString;
-        }
-    }
-
-    public enum Attendance {
-        FULLTIME ("Full-time"), PARTTIME("Part-time");
-
-        private String initialString;
-
-        Attendance(String initialString) {
-            this.initialString = initialString;
-        }
-
     }
 
     public long getId() {
@@ -64,12 +47,12 @@ public class Course {
         this.country = country;
     }
 
-    public String getCourseName() {
-        return courseName;
+    public String getName() {
+        return name;
     }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCity() {
@@ -92,7 +75,7 @@ public class Course {
         return tuition;
     }
 
-    public void setTuition(long tuition) {
+    public void setTuition(int tuition) {
         this.tuition = tuition;
     }
 
