@@ -34,7 +34,7 @@ public class CourseRepository {
         String sql = "select * from courses";
 
         sql += " where country = '" + courseSearch.country + "'";
-        sql += " where field = '" + courseSearch.fieldOfStudy + "'";
+        sql += " , field = '" + courseSearch.fieldOfStudy + "'";
 
         //TODO: Create a list to store all conditions
 
