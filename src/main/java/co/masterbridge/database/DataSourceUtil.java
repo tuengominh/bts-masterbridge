@@ -1,4 +1,4 @@
-package co.masterbridge.util;
+package co.masterbridge.database;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 

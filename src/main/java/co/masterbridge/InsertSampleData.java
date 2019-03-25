@@ -1,6 +1,6 @@
 package co.masterbridge;
 
-import co.masterbridge.util.DataSourceUtil;
+import co.masterbridge.database.DataSourceUtil;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
 
