@@ -1,5 +1,6 @@
-package co.masterbridge.util.database;
+package co.masterbridge.website;
 
+import co.masterbridge.util.database.SqlBuilder;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
