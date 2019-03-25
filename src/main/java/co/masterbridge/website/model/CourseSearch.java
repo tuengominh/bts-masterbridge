@@ -1,4 +1,4 @@
-package co.masterbridge.model;
+package co.masterbridge.website.model;
 
 public class CourseSearch {
 

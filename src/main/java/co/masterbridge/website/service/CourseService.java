@@ -1,8 +1,8 @@
-package co.masterbridge.service;
+package co.masterbridge.website.service;
 
-import co.masterbridge.model.Course;
-import co.masterbridge.model.CourseSearch;
-import co.masterbridge.repository.CourseRepository;
+import co.masterbridge.website.model.Course;
+import co.masterbridge.website.model.CourseSearch;
+import co.masterbridge.website.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

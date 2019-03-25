@@ -1,8 +1,8 @@
-package co.masterbridge.controller;
+package co.masterbridge.website.controller;
 
-import co.masterbridge.model.Course;
-import co.masterbridge.model.CourseSearch;
-import co.masterbridge.service.CourseService;
+import co.masterbridge.website.model.Course;
+import co.masterbridge.website.model.CourseSearch;
+import co.masterbridge.website.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

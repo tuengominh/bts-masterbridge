@@ -1,4 +1,4 @@
-package co.masterbridge.database;
+package co.masterbridge.website.database;
 
 public class SqlBuilder {
 
