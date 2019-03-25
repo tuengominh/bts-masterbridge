@@ -36,7 +36,7 @@ public class CourseRepository {
         sql += " where country = '" + courseSearch.country + "'";
         sql += " , field = '" + courseSearch.fieldOfStudy + "'";
 
-        //TODO: Create a list to store all conditions
+        //TODO: use SQL builder & search for part of String/ case sensitive
 
         return jdbcTemplate.query(sql, (rs1, rowNum) -> getCourse(rs1));
 

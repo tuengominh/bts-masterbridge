@@ -4,16 +4,25 @@ public class Course {
 
     private long id;
     //TODO: school_id
-    private String country;
+    private String country; //TODO: dropdown list
     private String name;
-    private String city;
-    private String fieldOfStudy; //TODO: case sensitive & change to enum type (?)
+    private String city; //TODO: dropdown list
+    private String fieldOfStudy; //TODO: case sensitive & 2 tables of field & category (with pointer)
     private int tuition;
     private Attendance attendance;
     private Duration duration;
-    //TODO: Curriculum (binary file), Images (binary file), Teacher's profiles (?), List of Alumnus (Users studying at that school)
+    //TODO: Curriculum (binary file), Images (binary file), Teacher's profiles (?) => S3 storage
+    //TODO: List of Alumnus (Users studying at that school)
 
-    public enum Duration {SIX_MONTHS, NINE_MONTHS, ONE_YEAR, TWO_YEAR} //TODO: How to store integers in enum manner?
+    public enum Duration {SIX_MONTHS(6), NINE_MONTHS(9), ONE_YEAR(12), TWO_YEAR(24);
+
+        public int month;
+
+        Duration(int month) {
+            this.month = month;
+        }
+
+    }
 
     public enum Attendance {FULL_TIME, PART_TIME, ONLINE}
 
