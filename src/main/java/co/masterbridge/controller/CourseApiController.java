@@ -25,7 +25,7 @@ public class CourseApiController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/find")
-    public Collection<Course> findGames(@RequestBody CourseSearch courseSearch) {
+    public Collection<Course> findCourses(@RequestBody CourseSearch courseSearch) {
         return courseService.find(courseSearch);
     }
 }

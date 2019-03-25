@@ -25,4 +25,5 @@ public class CourseService {
     public Collection<Course> find(CourseSearch courseSearch) {
         return courseRepository.find(courseSearch);
     }
+    //TODO: store CourseSearch => MongoDB (?)
 }
