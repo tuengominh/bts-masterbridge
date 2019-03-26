@@ -1,13 +1,13 @@
 package co.masterbridge.website;
 
-import co.masterbridge.website.database.DataSourceUtil;
+import co.masterbridge.website.util.DataSourceUtil;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
-public class InsertSampleData {
+public class ExecuteSqlScript {
 
     public static void main(String[] args) throws SQLException {
 

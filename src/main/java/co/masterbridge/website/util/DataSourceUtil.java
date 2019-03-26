@@ -1,4 +1,4 @@
-package co.masterbridge.website.database;
+package co.masterbridge.website.util;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
@@ -8,7 +8,7 @@ public class DataSourceUtil {
 
     public static DataSource getDataSourceInPath() {
 
-        // H2 will create the database here
+        // H2 will create the util here
         final String path = "~/dev/gamesdb";
 
         return new DriverManagerDataSource(

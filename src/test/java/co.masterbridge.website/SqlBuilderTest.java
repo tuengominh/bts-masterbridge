@@ -1,6 +1,6 @@
 package co.masterbridge.website;
 
-import co.masterbridge.website.database.SqlBuilder;
+import co.masterbridge.website.util.SqlBuilder;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -12,7 +12,6 @@ public class SqlBuilderTest {
     public void selectFromTable() {
 
         //1. Prepare objects
-
         SqlBuilder sqlBuilder = new SqlBuilder();
 
         //2. call some methods()
@@ -36,45 +35,29 @@ public class SqlBuilderTest {
 
         String sql = new SqlBuilder()
                 .from("courses")
-                .where("field = 'BIOCHEMISTRY'")
+                .where("field","like", "%BIOCHEMISTRY%")
                 .build();
 
-        assertThat(sql, is("select * from courses where field = 'BIOCHEMISTRY'"));
+        assertThat(sql, is("select * from courses where field like %BIOCHEMISTRY%"));
     }
-
 
     @Test
     public void whereMultipleConditions() {
 
         String sql = new SqlBuilder()
                 .from("courses")
-                .where("field = 'BIOCHEMISTRY'")
-                .where("country = 'Spain'")
-                .where("available = true")
+                .where("field","like", "%BIOCHEMISTRY%")
+                .where("country", "=", "Spain")
+                .where("available", "=", true)
+                .where("tuition", "<=", 10000 )
                 .build();
 
         assertThat(sql, is(
                 "select * from courses" +
-                        " where field = 'BIOCHEMISTRY'" +
+                        " where field like %BIOCHEMISTRY%" +
                         " and country = 'Spain'" +
-                        " and available = true"
+                        " and available = true and tuition <= 10000"
         ));
     }
-
-    @Test
-    public void whereEasierConditions() {
-
-        String fieldOfStudying = "ECONOMICS";
-
-        String sql = new SqlBuilder()
-                .from("courses")
-                .where("field", "=", fieldOfStudying )
-                .where("price", "<=", 10 )
-                .build();
-
-        assertThat(sql, is("select * from courses " +
-                "where field = 'ECONOMICS' and price <= 10"));
-    }
-
 
 }

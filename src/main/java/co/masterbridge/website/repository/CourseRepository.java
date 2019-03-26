@@ -2,7 +2,7 @@ package co.masterbridge.website.repository;
 
 import co.masterbridge.website.model.Course;
 import co.masterbridge.website.model.CourseSearch;
-import co.masterbridge.website.database.DataSourceUtil;
+import co.masterbridge.website.util.DataSourceUtil;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
