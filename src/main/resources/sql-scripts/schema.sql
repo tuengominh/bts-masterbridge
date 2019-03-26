@@ -1,7 +1,7 @@
 CREATE TABLE courses (
-  id INT AUTO_INCREMENT PRIMARY KEY,
+  course_id INT AUTO_INCREMENT PRIMARY KEY,
   school_id INT,
-  name VARCHAR(100) NOT NULL,
+  course_name VARCHAR(100) NOT NULL,
   country VARCHAR(50),
   city VARCHAR(50) NOT NULL,
   field VARCHAR(100) NOT NULL,
@@ -12,7 +12,17 @@ CREATE TABLE courses (
   image TEXT
 );
 
-insert into courses (name, country, city, field) values
-    ('MBDS','spain', 'barcelona','big data solutions'),
-    ('DCLead','denmark','copenhagen','creative technology');
+CREATE TABLE schools (
+  school_id INT AUTO_INCREMENT PRIMARY KEY,
+  course_id INT,
+  school_name VARCHAR(100) NOT NULL
+);
 
+CREATE TABLE fields (
+  field VARCHAR(100) NOT NULL PRIMARY KEY,
+  category VARCHAR(100)
+);
+
+CREATE TABLE categories (
+  category VARCHAR(100) NOT NULL PRIMARY KEY
+);

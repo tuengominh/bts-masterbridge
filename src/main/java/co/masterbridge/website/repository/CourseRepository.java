@@ -34,7 +34,7 @@ public class CourseRepository {
         String sql = "select * from courses";
 
         sql += " where country = '" + courseSearch.country + "'";
-        sql += " , field = '" + courseSearch.fieldOfStudy + "'";
+        sql += " and field = '" + courseSearch.fieldOfStudy + "'";
 
         //TODO: use SQL builder & search for part of String/ case sensitive
 
@@ -44,12 +44,12 @@ public class CourseRepository {
 
     public Course getCourse(ResultSet rs) throws SQLException {
 
-        long id = rs.getLong("id");
+        long courseId = rs.getLong("course_id");
         String country = rs.getString("country");
         String fieldOfStudy = rs.getString("field");
 
         Course course = new Course();
-        course.setId(id);
+        course.setCourseId(courseId);
 
         List<Course> courses = new ArrayList<>();
 
