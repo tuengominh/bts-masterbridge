@@ -12,6 +12,6 @@ public class InsertSampleData {
     public static void main(String[] args) throws SQLException {
 
         DataSource dataSource = DataSourceUtil.getDataSourceInPath();
-        ScriptUtils.executeSqlScript(dataSource.getConnection(), new ClassPathResource("sql-scripts/sample-data.sql"));
+        ScriptUtils.executeSqlScript(dataSource.getConnection(), new ClassPathResource("sql-scripts/schema.sql"));
     }
 }
