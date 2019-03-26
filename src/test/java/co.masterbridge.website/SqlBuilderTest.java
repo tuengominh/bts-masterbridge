@@ -38,7 +38,7 @@ public class SqlBuilderTest {
                 .where("field","like", "%BIOCHEMISTRY%")
                 .build();
 
-        assertThat(sql, is("select * from courses where field like %BIOCHEMISTRY%"));
+        assertThat(sql, is("select * from courses where field like '%BIOCHEMISTRY%'"));
     }
 
     @Test
@@ -54,10 +54,22 @@ public class SqlBuilderTest {
 
         assertThat(sql, is(
                 "select * from courses" +
-                        " where field like %BIOCHEMISTRY%" +
+                        " where field like '%BIOCHEMISTRY%'" +
                         " and country = 'Spain'" +
                         " and available = true and tuition <= 10000"
         ));
+    }
+
+    @Test
+    public void whereWithNullValue() {
+
+        String sql = new SqlBuilder()
+                .from("courses")
+                .where("field","like", "%BIOCHEMISTRY%")
+                .where("country", "=", null)
+                .build();
+
+        assertThat(sql, is("select * from courses where field like '%BIOCHEMISTRY%'"));
     }
 
 }

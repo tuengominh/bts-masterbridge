@@ -3,15 +3,13 @@ package co.masterbridge.website.repository;
 import co.masterbridge.website.model.Course;
 import co.masterbridge.website.model.CourseSearch;
 import co.masterbridge.website.util.DataSourceUtil;
+import co.masterbridge.website.util.SqlBuilder;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Repository
 public class CourseRepository {
@@ -19,8 +17,7 @@ public class CourseRepository {
     private JdbcTemplate jdbcTemplate;
 
     public CourseRepository() {
-        DataSource dataSource = DataSourceUtil.getDataSourceInPath();
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
+        this.jdbcTemplate = new JdbcTemplate(DataSourceUtil.getDataSourceInPath());
     }
 
     public Collection<Course> getAll() {
@@ -31,12 +28,13 @@ public class CourseRepository {
 
     public Collection<Course> find(CourseSearch courseSearch) {
 
-        String sql = "select * from courses";
+        String sql = new SqlBuilder()
+                .from("courses")
+                .where("country","=", courseSearch.country)
+                .where("field","like", "%" + courseSearch.fieldOfStudy + "%")
+                .build();
 
-        sql += " where country = '" + courseSearch.country + "'";
-        sql += " and field = '" + courseSearch.fieldOfStudy + "'";
-
-        //TODO: use SQL builder & search for part of String/ case sensitive
+        //TODO: case sensitive
 
         return jdbcTemplate.query(sql, (rs1, rowNum) -> getCourse(rs1));
 
@@ -44,19 +42,11 @@ public class CourseRepository {
 
     public Course getCourse(ResultSet rs) throws SQLException {
 
-        long courseId = rs.getLong("course_id");
-        String country = rs.getString("country");
-        String fieldOfStudy = rs.getString("field");
-
         Course course = new Course();
-        course.setCourseId(courseId);
+        course.setCourseId(rs.getLong("course_id"));
+        course.setCountry(rs.getString("country"));
+        course.setFieldOfStudy(rs.getString("field"));
 
-        List<Course> courses = new ArrayList<>();
-
-        if (country != null && fieldOfStudy != null) {
-            courses.add(course);
-
-        }
         return course;
     }
 }

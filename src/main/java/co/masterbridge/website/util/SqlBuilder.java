@@ -14,7 +14,7 @@ public class SqlBuilder {
 
         if(value != null) {
             String valueString;
-            if (!(value instanceof String) || ((String) value).contains("%")) {
+            if (!(value instanceof String)) {
                 valueString = value.toString();
             } else {
                 valueString = "'" + value + "'";
