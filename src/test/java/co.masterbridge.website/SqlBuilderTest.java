@@ -69,7 +69,7 @@ public class SqlBuilderTest {
                 .where("country", "=", null)
                 .build();
 
-        assertThat(sql, is("select * from courses where field like '%BIOCHEMISTRY%'"));
+        assertThat(sql, is("select * from courses where field like '%BIOCHEMISTRY%"));
     }
 
 }
