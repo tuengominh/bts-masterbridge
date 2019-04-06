@@ -11,14 +11,14 @@ import java.util.Collection;
 
 
 @Repository
-public class CourseRepositoryMongo implements CourseREpo {
+public class CourseRepositoryMongo implements CourseRepository {
 
     private MongoCollection<Document> courseCol;
 
     public CourseRepositoryMongo() {
 
         MongoClient mongoClient = MongoClients.create();
-        MongoDatabase database = mongoClient.getDatabase("website");
+        MongoDatabase database = mongoClient.getDatabase("masterbridge-website");
         this.courseCol = database.getCollection("courses");
     }
 
@@ -26,18 +26,15 @@ public class CourseRepositoryMongo implements CourseREpo {
     public void create(Course course) {
 
         Document courseDoc = MongoUtil.doc()
-                .append("state", course.getCountry())
-                .append("players", course.getFieldOfStudy());
+                .append("country", course.getCountry())
+                .append("field", course.getFieldOfStudy());
 
         courseCol.insertOne(courseDoc);
     }
 
     @Override
     public void update(Course course) {
-
     }
-
-
 
     @Override
     public Course getById(long id) {
@@ -52,6 +49,11 @@ public class CourseRepositoryMongo implements CourseREpo {
     @Override
     public Collection<Course> find(CourseSearch courseSearch) {
         return null;
+    }
+
+    @Override
+    public void remove(Course course) {
+
     }
 
 }
