@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 
-@Repository
+
 public class CourseRepository {
 
     private JdbcTemplate jdbcTemplate;
