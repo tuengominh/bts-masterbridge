@@ -41,12 +41,12 @@ public class CourseRepositoryMongo implements CourseRepository {
     @Override
     public Collection<Course> find(CourseSearch courseSearch) {
         Document query = (Document) and(
-                eq("country", courseSearch.country),
-                eq("city", courseSearch.city),
-                eq("field", courseSearch.fieldOfStudy),
-                eq("tuition", courseSearch.tuition),
-                eq("attendance", courseSearch.attendance),
-                eq("duration", courseSearch.duration));
+                setQuery("country", courseSearch.country),
+                setQuery("city", courseSearch.city),
+                setQuery("field", courseSearch.fieldOfStudy),
+                setQuery("tuition", courseSearch.tuition),
+                setQuery("attendance", courseSearch.attendance),
+                setQuery("duration", courseSearch.duration));
 
         return getCoursesFromCursor(courseCol.find(query).iterator());
     }
@@ -67,7 +67,7 @@ public class CourseRepositoryMongo implements CourseRepository {
                 doc.getInteger("school_id"),
                 doc.getString("course_name"),
                 doc.getString("country"),
-                doc.getString( "city"),
+                doc.getString("city"),
                 doc.getString("field"),
                 doc.getInteger("tuition"),
                 (Course.Attendance) doc.get("attendance"),
@@ -95,5 +95,14 @@ public class CourseRepositoryMongo implements CourseRepository {
         }
         coursesCursor.close();
         return courses;
+    }
+
+    public Document setQuery(String key, Object value) {
+        if (value != null) {
+            return (Document) eq(key, value);
+            //TODO: gt, lt
+        } else {
+            return doc();
+        }
     }
 }
