@@ -61,7 +61,7 @@ public class CourseRepositoryMongo implements CourseRepository {
     }
 
     private Course getCourseFromDoc(Document doc) {
-        Course course = new Course(
+        return new Course(
                 doc.getInteger("_id"),
                 doc.getInteger("school_id"),
                 doc.getString("course_name"),
@@ -72,7 +72,6 @@ public class CourseRepositoryMongo implements CourseRepository {
                 (Course.Attendance) doc.get("attendance"),
                 (Course.Duration) doc.get("duration")
         );
-        return course;
     }
 
     private Document getDocFromCourse(Course course) {
@@ -96,7 +95,7 @@ public class CourseRepositoryMongo implements CourseRepository {
         return courses;
     }
 
-    public Document setEqualQuery(String key, Object value) {
+    private Document setEqualQuery(String key, Object value) {
         if (value != null) {
             return (Document) eq(key, value);
         } else {
@@ -104,7 +103,7 @@ public class CourseRepositoryMongo implements CourseRepository {
         }
     }
 
-    public Document setQueryRange(String key, Object maxValue) {
+    private Document setQueryRange(String key, Object maxValue) {
         if (maxValue != null) {
                 return (Document) and(gt(key, 0), lt(key, maxValue));
             } else {

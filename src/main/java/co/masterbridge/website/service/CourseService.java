@@ -3,8 +3,6 @@ package co.masterbridge.website.service;
 import co.masterbridge.website.model.Course;
 import co.masterbridge.website.model.CourseSearch;
 import co.masterbridge.website.repository.CourseRepository;
-import co.masterbridge.website.repository.CourseRepositoryJdbc;
-import co.masterbridge.website.repository.CourseRepositoryMongo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
