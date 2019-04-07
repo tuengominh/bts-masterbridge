@@ -11,8 +11,7 @@ import java.util.Collection;
 import java.util.List;
 
 import static co.masterbridge.website.util.MongoUtil.doc;
-import static com.mongodb.client.model.Filters.and;
-import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.*;
 
 @Repository
 public class CourseRepositoryMongo implements CourseRepository {
@@ -41,12 +40,12 @@ public class CourseRepositoryMongo implements CourseRepository {
     @Override
     public Collection<Course> find(CourseSearch courseSearch) {
         Document query = (Document) and(
-                setQuery("country", courseSearch.country),
-                setQuery("city", courseSearch.city),
-                setQuery("field", courseSearch.fieldOfStudy),
-                setQuery("tuition", courseSearch.tuition),
-                setQuery("attendance", courseSearch.attendance),
-                setQuery("duration", courseSearch.duration));
+                setEqualQuery("country", courseSearch.country),
+                setEqualQuery("city", courseSearch.city),
+                setEqualQuery("field", courseSearch.fieldOfStudy),
+                setQueryRange("tuition", courseSearch.tuition),
+                setEqualQuery("attendance", courseSearch.attendance),
+                setEqualQuery("duration", courseSearch.duration));
 
         return getCoursesFromCursor(courseCol.find(query).iterator());
     }
@@ -97,11 +96,18 @@ public class CourseRepositoryMongo implements CourseRepository {
         return courses;
     }
 
-    public Document setQuery(String key, Object value) {
+    public Document setEqualQuery(String key, Object value) {
         if (value != null) {
             return (Document) eq(key, value);
-            //TODO: gt, lt
         } else {
+            return doc();
+        }
+    }
+
+    public Document setQueryRange(String key, Object maxValue) {
+        if (maxValue != null) {
+                return (Document) and(gt(key, 0), lt(key, maxValue));
+            } else {
             return doc();
         }
     }
