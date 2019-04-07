@@ -36,8 +36,8 @@ public class CourseApiController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Course createCourse() {
-        return courseService.createCourse();
+    public long createCourse() {
+        return courseService.createCourse().getCourseId();
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/find")
