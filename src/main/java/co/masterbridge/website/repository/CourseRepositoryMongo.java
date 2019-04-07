@@ -11,6 +11,8 @@ import java.util.Collection;
 import java.util.List;
 
 import static co.masterbridge.website.util.MongoUtil.doc;
+import static com.mongodb.client.model.Filters.and;
+import static com.mongodb.client.model.Filters.eq;
 
 @Repository
 public class CourseRepositoryMongo implements CourseRepository {
@@ -28,7 +30,7 @@ public class CourseRepositoryMongo implements CourseRepository {
         MongoCursor<Document> coursesCursor = courseCol.find().iterator();
         List<Course> courses = new ArrayList<>();
         while (coursesCursor.hasNext()) {
-            courses.add(getCourseFromCursor(coursesCursor.next()));
+            courses.add(getCourseFromDoc(coursesCursor.next()));
         }
         coursesCursor.close();
         return courses;
@@ -36,8 +38,8 @@ public class CourseRepositoryMongo implements CourseRepository {
 
     @Override
     public Course getById(long id) {
-        Document coursesCursor = courseCol.find(doc("_id", id)).first();
-        return getCourseFromCursor((Document) coursesCursor);
+        Document courseDoc = courseCol.find(eq("_id", id)).first();
+        return getCourseFromDoc(courseDoc);
     }
 
     @Override
@@ -58,18 +60,19 @@ public class CourseRepositoryMongo implements CourseRepository {
 
     @Override
     public Collection<Course> find(CourseSearch courseSearch) {
-        Document query = doc()
-                .append("country", courseSearch.country)
-                .append("city", courseSearch.city)
-                .append("field", courseSearch.fieldOfStudy)
-                .append("tuition", courseSearch.tuition)
-                .append("attendance", courseSearch.attendance)
-                .append("duration", courseSearch.duration);
+        Document query = (Document) and(
+                eq("country", courseSearch.country),
+                eq("city", courseSearch.city),
+                eq("field", courseSearch.fieldOfStudy),
+                eq("tuition", courseSearch.tuition),
+                eq("attendance", courseSearch.attendance),
+                eq("duration", courseSearch.duration));
 
         MongoCursor<Document> coursesCursor = courseCol.find(query).iterator();
+
         List<Course> courses = new ArrayList<>();
         while (coursesCursor.hasNext()) {
-            courses.add(getCourseFromCursor(coursesCursor.next()));
+            courses.add(getCourseFromDoc(coursesCursor.next()));
         }
         coursesCursor.close();
         return courses;
@@ -77,7 +80,6 @@ public class CourseRepositoryMongo implements CourseRepository {
 
     @Override
     public void update(long id, Course course) {
-        Document query = doc("_id", id);
         Document update = doc()
                 .append("$set", doc("school_id", course.getSchoolId()))
                 .append("$set", doc("course_name", course.getCourseName()))
@@ -88,15 +90,15 @@ public class CourseRepositoryMongo implements CourseRepository {
                 .append("$set", doc("attendance", course.getAttendance()))
                 .append("$set", doc("duration", course.getDuration()));
 
-        courseCol.updateOne(query, update);
+        courseCol.updateOne(eq("_id", id), update);
     }
 
     @Override
     public void remove(long id) {
-        courseCol.deleteOne(doc("_id", id));
+        courseCol.deleteOne(eq("_id", id));
     }
 
-    private Course getCourseFromCursor(Document doc) {
+    private Course getCourseFromDoc(Document doc) {
 
         Course course = new Course(
                 doc.getInteger("_id"),
