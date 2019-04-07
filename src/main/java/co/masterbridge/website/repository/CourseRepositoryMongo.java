@@ -19,7 +19,7 @@ public class CourseRepositoryMongo implements CourseRepository {
     private MongoCollection<Document> courseCol;
 
     public CourseRepositoryMongo() {
-        this.courseCol = MongoClients.create().getDatabase("masterbridge-website").getCollection("courses");
+        this.courseCol = MongoClients.create().getDatabase("masterbridge").getCollection("courses");
     }
 
     @Override
