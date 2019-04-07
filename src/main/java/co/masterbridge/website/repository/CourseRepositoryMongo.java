@@ -36,10 +36,8 @@ public class CourseRepositoryMongo implements CourseRepository {
 
     @Override
     public Course getById(long id) {
-        MongoCursor<Document> coursesCursor = courseCol.find(doc("_id", id)).iterator();
-        Course course = getCourseFromCursor((Document) coursesCursor);
-        coursesCursor.close();
-        return course;
+        Document coursesCursor = courseCol.find(doc("_id", id)).first();
+        return getCourseFromCursor((Document) coursesCursor);
     }
 
     @Override
