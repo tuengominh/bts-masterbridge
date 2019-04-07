@@ -15,18 +15,10 @@ public class CourseRepositoryJdbc implements CourseRepository {
 
     private JdbcTemplate jdbcTemplate;
 
+    private final String INSERT_STATEMENT = "insert into courses (school_id, course_name, country, field) values (?, ?, ?, ?)";
+
     public CourseRepositoryJdbc() {
         this.jdbcTemplate = new JdbcTemplate(DataSourceUtil.getDataSourceInPath());
-    }
-
-    @Override
-    public void create(Course course) {
-
-    }
-
-    @Override
-    public void update(Course course) {
-
     }
 
     @Override
@@ -42,6 +34,23 @@ public class CourseRepositoryJdbc implements CourseRepository {
     }
 
     @Override
+    public void create(Course course) {
+        jdbcTemplate.update(INSERT_STATEMENT, course.getSchoolId(), course.getCourseName(), course.getCountry(), course.getFieldOfStudy());
+    }
+
+    @Override
+    public void update(Course course, String property, Object value) {
+        jdbcTemplate.update("update courses set " + property + " = " + value + " where id = " + course.getCourseId());
+    }
+    //TODO: improve as method in SQLBuilder
+
+
+    @Override
+    public void remove(Course course) {
+
+    }
+
+    @Override
     public Collection<Course> find(CourseSearch courseSearch) {
 
         String sql = new SqlBuilder()
@@ -54,12 +63,7 @@ public class CourseRepositoryJdbc implements CourseRepository {
 
     }
 
-    @Override
-    public void remove(Course course) {
-
-    }
-
-    public Course getCourse(ResultSet rs) throws SQLException {
+    private Course getCourse(ResultSet rs) throws SQLException {
 
         Course course = new Course();
         course.setCourseId(rs.getLong("course_id"));
