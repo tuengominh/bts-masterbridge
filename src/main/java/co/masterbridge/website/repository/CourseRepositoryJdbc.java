@@ -5,7 +5,6 @@ import co.masterbridge.website.model.CourseSearch;
 import co.masterbridge.website.util.DataSourceUtil;
 import co.masterbridge.website.util.SqlBuilder;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,6 +22,13 @@ public class CourseRepositoryJdbc implements CourseRepository {
     }
 
     @Override
+    public Collection<Course> getAll() {
+        return jdbcTemplate.query(
+                "select * from courses",
+                (rs1, rowNum) -> getCourse(rs1));
+    }
+
+    @Override
     public Course getById(long id) {
         String sql = new SqlBuilder()
                 .from("courses")
@@ -33,31 +39,12 @@ public class CourseRepositoryJdbc implements CourseRepository {
     }
 
     @Override
-    public Collection<Course> getAll() {
-        return jdbcTemplate.query(
-                "select * from courses",
-                (rs1, rowNum) -> getCourse(rs1));
-    }
-
-    @Override
     public void create(Course course) {
         jdbcTemplate.update(INSERT_STATEMENT, course.getSchoolId(), course.getCourseName(), course.getCountry(), course.getFieldOfStudy());
     }
 
     @Override
-    public void update(long id, Course course) {
-        jdbcTemplate.update(UPDATE_STATEMENT, course.getCountry(), course.getFieldOfStudy(), id);
-    }
-
-
-    @Override
-    public void remove(long id) {
-        jdbcTemplate.update("delete from courses where id = " + id);
-    }
-
-    @Override
     public Collection<Course> find(CourseSearch courseSearch) {
-
         String sql = new SqlBuilder()
                 .from("courses")
                 .where("country","=", courseSearch.country)
@@ -68,8 +55,17 @@ public class CourseRepositoryJdbc implements CourseRepository {
 
     }
 
-    private Course getCourse(ResultSet rs) throws SQLException {
+    @Override
+    public void update(long id, Course course) {
+        jdbcTemplate.update(UPDATE_STATEMENT, course.getCountry(), course.getFieldOfStudy(), id);
+    }
 
+    @Override
+    public void remove(long id) {
+        jdbcTemplate.update("delete from courses where id = " + id);
+    }
+
+    private Course getCourse(ResultSet rs) throws SQLException {
         Course course = new Course();
         course.setCourseId(rs.getLong("course_id"));
         course.setCountry(rs.getString("country"));

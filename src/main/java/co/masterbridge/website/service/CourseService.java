@@ -40,5 +40,4 @@ public class CourseService {
 
     public void removeCourse(long id) {
         courseRepository.remove(id);}
-
 }

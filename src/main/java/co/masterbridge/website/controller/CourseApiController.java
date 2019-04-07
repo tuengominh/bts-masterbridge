@@ -25,7 +25,7 @@ public class CourseApiController {
         return courseService.getAllCourses();
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/{courseId}")
+    @RequestMapping(method = RequestMethod.GET, path = "/{id}")
     public Course getCourseById(@PathVariable long id) throws CourseNotExistException {
         Course course = courseService.getCourseById(id);
         if (course != null) {
@@ -45,7 +45,7 @@ public class CourseApiController {
         return courseService.findCourses(courseSearch);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, path = "/{courseId}")
+    @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
     public Course updateCourseById(@PathVariable long id, @RequestBody Course newCourse ) {
         if (courseService.getCourseById(id) != null) {
             courseService.updateCourse(id, newCourse);
@@ -55,7 +55,7 @@ public class CourseApiController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, path = "/{courseId}")
+    @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
     public Collection<Course> removeCourseById(@PathVariable long id) {
         courseService.removeCourse(id);
         return getCourseList();

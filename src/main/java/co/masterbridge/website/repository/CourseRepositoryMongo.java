@@ -12,7 +12,6 @@ import java.util.List;
 
 import static co.masterbridge.website.util.MongoUtil.doc;
 import static com.mongodb.client.model.Filters.and;
-
 import static com.mongodb.client.model.Filters.eq;
 
 @Repository
@@ -21,7 +20,6 @@ public class CourseRepositoryMongo implements CourseRepository {
     private MongoCollection<Document> courseCol;
 
     public CourseRepositoryMongo() {
-
         this.courseCol = MongoClients.create().getDatabase("masterbridge-website").getCollection("courses");
     }
 
