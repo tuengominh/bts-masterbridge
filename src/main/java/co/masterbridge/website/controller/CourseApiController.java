@@ -36,8 +36,8 @@ public class CourseApiController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Course createCourse(@RequestBody Course course) {
-        return courseService.createCourse(course);
+    public Course createCourse() {
+        return courseService.createCourse();
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/find")
@@ -47,9 +47,10 @@ public class CourseApiController {
 
     @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
     public Course updateCourseById(@PathVariable long id, @RequestBody Course newCourse ) {
-        if (courseService.getCourseById(id) != null) {
+        Course course = courseService.getCourseById(id);
+        if (course != null) {
             courseService.updateCourse(id, newCourse);
-            return getCourseById(id);
+            return course;
         } else {
             throw new CourseNotExistException();
         }
