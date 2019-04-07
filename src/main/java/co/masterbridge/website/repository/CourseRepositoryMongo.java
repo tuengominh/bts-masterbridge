@@ -12,6 +12,7 @@ import java.util.List;
 
 import static co.masterbridge.website.util.MongoUtil.doc;
 import static com.mongodb.client.model.Filters.and;
+
 import static com.mongodb.client.model.Filters.eq;
 
 @Repository
@@ -26,36 +27,17 @@ public class CourseRepositoryMongo implements CourseRepository {
 
     @Override
     public Collection<Course> getAll() {
-
-        MongoCursor<Document> coursesCursor = courseCol.find().iterator();
-        List<Course> courses = new ArrayList<>();
-        while (coursesCursor.hasNext()) {
-            courses.add(getCourseFromDoc(coursesCursor.next()));
-        }
-        coursesCursor.close();
-        return courses;
+        return getCoursesFromCursor(courseCol.find().iterator());
     }
 
     @Override
     public Course getById(long id) {
-        Document courseDoc = courseCol.find(eq("_id", id)).first();
-        return getCourseFromDoc(courseDoc);
+        return getCourseFromDoc(courseCol.find(eq("_id", id)).first());
     }
 
     @Override
     public void create(Course course) {
-
-        Document courseDoc = doc()
-                .append("school_id", course.getSchoolId())
-                .append("course_name", course.getCourseName())
-                .append("country", course.getCountry())
-                .append("city", course.getCity())
-                .append("field", course.getFieldOfStudy())
-                .append("tuition", course.getTuition())
-                .append("attendance", course.getAttendance())
-                .append("duration", course.getDuration());
-
-        courseCol.insertOne(courseDoc);
+        courseCol.insertOne(getDocFromCourse(course));
     }
 
     @Override
@@ -68,29 +50,12 @@ public class CourseRepositoryMongo implements CourseRepository {
                 eq("attendance", courseSearch.attendance),
                 eq("duration", courseSearch.duration));
 
-        MongoCursor<Document> coursesCursor = courseCol.find(query).iterator();
-
-        List<Course> courses = new ArrayList<>();
-        while (coursesCursor.hasNext()) {
-            courses.add(getCourseFromDoc(coursesCursor.next()));
-        }
-        coursesCursor.close();
-        return courses;
+        return getCoursesFromCursor(courseCol.find(query).iterator());
     }
 
     @Override
     public void update(long id, Course course) {
-        Document update = doc()
-                .append("$set", doc("school_id", course.getSchoolId()))
-                .append("$set", doc("course_name", course.getCourseName()))
-                .append("$set", doc("country", course.getCountry()))
-                .append("$set", doc("city", course.getCity()))
-                .append("$set", doc("field", course.getFieldOfStudy()))
-                .append("$set", doc("tuition", course.getTuition()))
-                .append("$set", doc("attendance", course.getAttendance()))
-                .append("$set", doc("duration", course.getDuration()));
-
-        courseCol.updateOne(eq("_id", id), update);
+        courseCol.updateOne(eq("_id", id), doc().append("$set", getDocFromCourse(course)));
     }
 
     @Override
@@ -99,7 +64,6 @@ public class CourseRepositoryMongo implements CourseRepository {
     }
 
     private Course getCourseFromDoc(Document doc) {
-
         Course course = new Course(
                 doc.getInteger("_id"),
                 doc.getInteger("school_id"),
@@ -112,5 +76,26 @@ public class CourseRepositoryMongo implements CourseRepository {
                 (Course.Duration) doc.get("duration")
         );
         return course;
+    }
+
+    private Document getDocFromCourse(Course course) {
+        return doc()
+                .append("school_id", course.getSchoolId())
+                .append("course_name", course.getCourseName())
+                .append("country", course.getCountry())
+                .append("city", course.getCity())
+                .append("field", course.getFieldOfStudy())
+                .append("tuition", course.getTuition())
+                .append("attendance", course.getAttendance())
+                .append("duration", course.getDuration());
+    }
+
+    private List<Course> getCoursesFromCursor(MongoCursor<Document> coursesCursor) {
+        List<Course> courses = new ArrayList<>();
+        while (coursesCursor.hasNext()) {
+            courses.add(getCourseFromDoc(coursesCursor.next()));
+        }
+        coursesCursor.close();
+        return courses;
     }
 }
