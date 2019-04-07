@@ -41,9 +41,9 @@ public class CourseRepositoryMongo implements CourseRepository {
     }
 
     @Override
-    public void update(Course course, String property, Object value) {
+    public void update(Course course) {
         Document query = doc("_id", course.getCourseId());
-        Document update = doc("$set", doc(property, value));
+        Document update = doc("$set", doc("tuition", 17000));
         courseCol.updateOne(query, update);
     }
 

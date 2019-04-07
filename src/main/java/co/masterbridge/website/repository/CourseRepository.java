@@ -9,7 +9,7 @@ public interface CourseRepository {
 
         void create(Course course);
 
-        void update(Course course, String property, Object value);
+        void update(Course course);
 
         Course getById(long id);
 

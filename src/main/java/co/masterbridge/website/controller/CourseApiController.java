@@ -54,9 +54,9 @@ public class CourseApiController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/{courseId}")
-    public long removeCourse(@PathVariable long id) {
+    public Collection<Course> removeCourse(@PathVariable long id) {
         Course course = courseService.getCourseById(id);
-        courseService.updateCourse(course);
-        return course.getCourseId();
+        courseService.removeCourse(course);
+        return getCourseList();
     }
 }

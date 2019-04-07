@@ -15,7 +15,8 @@ public class CourseRepositoryJdbc implements CourseRepository {
 
     private JdbcTemplate jdbcTemplate;
 
-    private final String INSERT_STATEMENT = "insert into courses (school_id, course_name, country, field) values (?, ?, ?, ?)";
+    final String INSERT_STATEMENT = "insert into courses (school_id, course_name, country, field) values (?, ?, ?, ?)";
+    final String UPDATE_STATEMENT = "update courses set country = ?, field = ? where id = ?";
 
     public CourseRepositoryJdbc() {
         this.jdbcTemplate = new JdbcTemplate(DataSourceUtil.getDataSourceInPath());
@@ -39,10 +40,9 @@ public class CourseRepositoryJdbc implements CourseRepository {
     }
 
     @Override
-    public void update(Course course, String property, Object value) {
-        jdbcTemplate.update("update courses set " + property + " = " + value + " where id = " + course.getCourseId());
+    public void update(Course course) {
+        jdbcTemplate.update(UPDATE_STATEMENT, course.getCountry(), course.getFieldOfStudy(), course.getCourseId());
     }
-    //TODO: improve as method in SQLBuilder
 
 
     @Override
