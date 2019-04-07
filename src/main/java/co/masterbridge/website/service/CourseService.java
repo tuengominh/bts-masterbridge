@@ -24,22 +24,21 @@ public class CourseService {
         return courseRepository.getAll();
     }
 
-    public Course createCourse() {
-        Course course = new Course();
+    public Course getCourseById(long id) { return courseRepository.getById(id); }
+
+    public Course createCourse(Course course) {
         courseRepository.create(course);
         return course;
     }
-
-    public void updateCourse(Course course) {
-        courseRepository.update(course); }
-
-    public void removeCourse(Course course) {
-        courseRepository.remove(course);}
 
     public Collection<Course> findCourses(CourseSearch courseSearch) {
         return courseRepository.find(courseSearch);
     }
 
-    public Course getCourseById(long id) { return courseRepository.getById(id); }
+    public void updateCourse(long id, Course course) {
+        courseRepository.update(id, course); }
+
+    public void removeCourse(long id) {
+        courseRepository.remove(id);}
 
 }

@@ -7,15 +7,15 @@ import java.util.Collection;
 
 public interface CourseRepository {
 
-        void create(Course course);
-
-        void update(Course course);
+        Collection<Course> getAll();
 
         Course getById(long id);
 
-        Collection<Course> getAll();
+        void create(Course course);
 
         Collection<Course> find(CourseSearch courseSearch);
 
-        void remove(Course course);
+        void update(long id, Course course);
+
+        void remove(long id);
 }

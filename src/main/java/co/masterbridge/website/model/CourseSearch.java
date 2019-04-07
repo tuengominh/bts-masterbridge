@@ -4,9 +4,9 @@ public class CourseSearch {
 
     public String country;
     public String fieldOfStudy;
-    private String city;
-    private int tuition;
-    private Course.Attendance attendance;
-    private Course.Duration duration;
+    public String city;
+    public int tuition;
+    public Course.Attendance attendance;
+    public Course.Duration duration;
 
 }

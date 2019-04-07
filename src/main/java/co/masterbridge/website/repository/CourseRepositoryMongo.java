@@ -19,9 +19,27 @@ public class CourseRepositoryMongo implements CourseRepository {
 
     public CourseRepositoryMongo() {
 
-        MongoClient mongoClient = MongoClients.create();
-        MongoDatabase database = mongoClient.getDatabase("masterbridge-website");
-        this.courseCol = database.getCollection("courses");
+        this.courseCol = MongoClients.create().getDatabase("masterbridge-website").getCollection("courses");
+    }
+
+    @Override
+    public Collection<Course> getAll() {
+
+        MongoCursor<Document> coursesCursor = courseCol.find().iterator();
+        List<Course> courses = new ArrayList<>();
+        while (coursesCursor.hasNext()) {
+            courses.add(getCourseFromCursor(coursesCursor.next()));
+        }
+        coursesCursor.close();
+        return courses;
+    }
+
+    @Override
+    public Course getById(long id) {
+        MongoCursor<Document> coursesCursor = courseCol.find(doc("_id", id)).iterator();
+        Course course = getCourseFromCursor((Document) coursesCursor);
+        coursesCursor.close();
+        return course;
     }
 
     @Override
@@ -41,25 +59,43 @@ public class CourseRepositoryMongo implements CourseRepository {
     }
 
     @Override
-    public void update(Course course) {
-        Document query = doc("_id", course.getCourseId());
-        Document update = doc("$set", doc("tuition", 17000));
+    public Collection<Course> find(CourseSearch courseSearch) {
+        Document query = doc()
+                .append("country", courseSearch.country)
+                .append("city", courseSearch.city)
+                .append("field", courseSearch.fieldOfStudy)
+                .append("tuition", courseSearch.tuition)
+                .append("attendance", courseSearch.attendance)
+                .append("duration", courseSearch.duration);
+
+        MongoCursor<Document> coursesCursor = courseCol.find(query).iterator();
+        List<Course> courses = new ArrayList<>();
+        while (coursesCursor.hasNext()) {
+            courses.add(getCourseFromCursor(coursesCursor.next()));
+        }
+        coursesCursor.close();
+        return courses;
+    }
+
+    @Override
+    public void update(long id, Course course) {
+        Document query = doc("_id", id);
+        Document update = doc()
+                .append("$set", doc("school_id", course.getSchoolId()))
+                .append("$set", doc("course_name", course.getCourseName()))
+                .append("$set", doc("country", course.getCountry()))
+                .append("$set", doc("city", course.getCity()))
+                .append("$set", doc("field", course.getFieldOfStudy()))
+                .append("$set", doc("tuition", course.getTuition()))
+                .append("$set", doc("attendance", course.getAttendance()))
+                .append("$set", doc("duration", course.getDuration()));
+
         courseCol.updateOne(query, update);
     }
 
     @Override
-    public Collection<Course> getAll() {
-
-        MongoCursor<Document> coursesCursor = courseCol.find().iterator();
-        List<Course> courses = new ArrayList<>();
-        try {
-            while (coursesCursor.hasNext()) {
-                courses.add(getCourseFromCursor(coursesCursor.next()));
-            }
-        } finally {
-            coursesCursor.close();
-        }
-        return courses;
+    public void remove(long id) {
+        courseCol.deleteOne(doc("_id", id));
     }
 
     private Course getCourseFromCursor(Document doc) {
@@ -76,20 +112,5 @@ public class CourseRepositoryMongo implements CourseRepository {
                 (Course.Duration) doc.get("duration")
         );
         return course;
-    }
-
-    @Override
-    public Course getById(long id) {
-        return null;
-    }
-
-    @Override
-    public Collection<Course> find(CourseSearch courseSearch) {
-        return null;
-    }
-
-    @Override
-    public void remove(Course course) {
-
     }
 }

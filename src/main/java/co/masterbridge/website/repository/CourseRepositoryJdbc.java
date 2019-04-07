@@ -24,7 +24,12 @@ public class CourseRepositoryJdbc implements CourseRepository {
 
     @Override
     public Course getById(long id) {
-        return null;
+        String sql = new SqlBuilder()
+                .from("courses")
+                .where("course_id","=", id)
+                .build();
+
+        return jdbcTemplate.queryForObject(sql, (rs1, rowNum) -> getCourse(rs1));
     }
 
     @Override
@@ -40,14 +45,14 @@ public class CourseRepositoryJdbc implements CourseRepository {
     }
 
     @Override
-    public void update(Course course) {
-        jdbcTemplate.update(UPDATE_STATEMENT, course.getCountry(), course.getFieldOfStudy(), course.getCourseId());
+    public void update(long id, Course course) {
+        jdbcTemplate.update(UPDATE_STATEMENT, course.getCountry(), course.getFieldOfStudy(), id);
     }
 
 
     @Override
-    public void remove(Course course) {
-
+    public void remove(long id) {
+        jdbcTemplate.update("delete from courses where id = " + id);
     }
 
     @Override
