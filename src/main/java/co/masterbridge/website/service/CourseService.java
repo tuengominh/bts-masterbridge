@@ -24,8 +24,7 @@ public class CourseService {
 
     public Course getCourseById(long id) { return courseRepository.getById(id); }
 
-    public Course createCourse() {
-        Course course = new Course();
+    public Course createCourse(Course course) {
         courseRepository.create(course);
         return course;
     }

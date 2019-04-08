@@ -21,7 +21,7 @@ public class CourseApiController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public Collection<Course> getCourseList(){
+    public Collection<Course> getAllCourses(){
         return courseService.getAllCourses();
     }
 
@@ -36,8 +36,8 @@ public class CourseApiController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public long createCourse() {
-        return courseService.createCourse().getCourseId();
+    public long createCourse(@RequestBody Course course) {
+        return courseService.createCourse(course).getCourseId();
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/find")
@@ -46,7 +46,7 @@ public class CourseApiController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
-    public Course updateCourseById(@PathVariable long id, @RequestBody Course newCourse ) {
+    public Course updateCourseById(@PathVariable long id, @RequestBody Course newCourse) {
         Course course = courseService.getCourseById(id);
         if (course != null) {
             courseService.updateCourse(id, newCourse);
@@ -59,6 +59,6 @@ public class CourseApiController {
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
     public Collection<Course> removeCourseById(@PathVariable long id) {
         courseService.removeCourse(id);
-        return getCourseList();
+        return getAllCourses();
     }
 }

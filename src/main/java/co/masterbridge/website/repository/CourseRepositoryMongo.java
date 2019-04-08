@@ -52,7 +52,7 @@ public class CourseRepositoryMongo implements CourseRepository {
 
     @Override
     public void update(long id, Course course) {
-        courseCol.updateOne(eq("_id", id), doc().append("$set", getDocFromCourse(course)));
+        courseCol.updateOne(eq("_id", id), getDocFromCourse(course));
     }
 
     @Override
