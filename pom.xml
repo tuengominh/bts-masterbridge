@@ -52,11 +52,13 @@
             <artifactId>h2</artifactId>
             <version>1.4.197</version>
         </dependency>
+
         <dependency>
             <groupId>org.mongodb</groupId>
-            <artifactId>mongo-java-driver</artifactId>
+            <artifactId>mongodb-driver-sync</artifactId>
             <version>3.10.1</version>
         </dependency>
+
     </dependencies>
 
     <properties>

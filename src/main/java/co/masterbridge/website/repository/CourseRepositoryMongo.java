@@ -4,6 +4,7 @@ import co.masterbridge.website.model.Course;
 import co.masterbridge.website.model.CourseSearch;
 import com.mongodb.client.*;
 import org.bson.Document;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -18,8 +19,8 @@ public class CourseRepositoryMongo implements CourseRepository {
 
     private MongoCollection<Document> courseCol;
 
-    public CourseRepositoryMongo() {
-        this.courseCol = MongoClients.create().getDatabase("masterbridge").getCollection("courses");
+    public CourseRepositoryMongo(@Value("${mongoUri}") String mongoUri) {
+        this.courseCol = MongoClients.create(mongoUri).getDatabase("masterbridge").getCollection("courses");
     }
 
     @Override
