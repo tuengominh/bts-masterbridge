@@ -18,4 +18,6 @@ public interface CourseRepository {
         void update(long id, Course course);
 
         void remove(long id);
+
+        void storeInput(CourseSearch courseSearch);
 }

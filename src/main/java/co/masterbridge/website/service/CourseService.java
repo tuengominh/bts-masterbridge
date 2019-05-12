@@ -30,6 +30,7 @@ public class CourseService {
     }
 
     public Collection<Course> findCourses(CourseSearch courseSearch) {
+        this.courseRepository.storeInput(courseSearch);
         return courseRepository.find(courseSearch);
     }
 

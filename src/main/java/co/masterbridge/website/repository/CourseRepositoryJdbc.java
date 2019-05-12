@@ -65,6 +65,11 @@ public class CourseRepositoryJdbc implements CourseRepository {
         jdbcTemplate.update("delete from courses where id = " + id);
     }
 
+    @Override
+    public void storeInput(CourseSearch courseSearch) {
+        /* using Mongo */
+    }
+
     private Course getCourse(ResultSet rs) throws SQLException {
         Course course = new Course();
         course.setCourseId(rs.getLong("course_id"));

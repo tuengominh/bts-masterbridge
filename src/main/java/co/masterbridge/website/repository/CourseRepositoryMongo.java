@@ -18,9 +18,11 @@ import static com.mongodb.client.model.Filters.*;
 public class CourseRepositoryMongo implements CourseRepository {
 
     private MongoCollection<Document> courseCol;
+    private MongoCollection<Document> courseSearchCol;
 
     public CourseRepositoryMongo(@Value("${mongoUri}") String mongoUri) {
         this.courseCol = MongoClients.create(mongoUri).getDatabase("masterbridge").getCollection("courses");
+        this.courseSearchCol = MongoClients.create(mongoUri).getDatabase("masterbridge").getCollection("courseSearches");
     }
 
     @Override
@@ -49,6 +51,17 @@ public class CourseRepositoryMongo implements CourseRepository {
                 setEqualQuery("duration", courseSearch.duration));
 
         return getCoursesFromCursor(courseCol.find(query).iterator());
+    }
+
+    @Override
+    public void storeInput(CourseSearch courseSearch) {
+        courseSearchCol.insertOne(doc()
+                .append("field", courseSearch.getFieldOfStudy())
+                .append("country", courseSearch.getCountry())
+                .append("city", courseSearch.getCity())
+                .append("tuition", courseSearch.getTuition())
+                .append("attendance", courseSearch.getAttendance())
+                .append("duration", courseSearch.getDuration()));
     }
 
     @Override
