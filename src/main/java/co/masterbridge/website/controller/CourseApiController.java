@@ -43,6 +43,7 @@ public class CourseApiController {
     @RequestMapping(method = RequestMethod.POST, path = "/find")
     public Collection<Course> findCourses(@RequestBody CourseSearch courseSearch) {
         return courseService.findCourses(courseSearch);
+        //TODO: connect with front-end
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
