@@ -2,6 +2,7 @@ package co.masterbridge.website.repository;
 
 import co.masterbridge.website.model.Course;
 import co.masterbridge.website.model.CourseSearch;
+import co.masterbridge.website.util.MongoUtil;
 import com.mongodb.client.*;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,13 +43,14 @@ public class CourseRepositoryMongo implements CourseRepository {
 
     @Override
     public Collection<Course> find(CourseSearch courseSearch) {
-        Document query = (Document) and(
-                setEqualQuery("country", courseSearch.country),
-                setEqualQuery("city", courseSearch.city),
-                setEqualQuery("field", courseSearch.fieldOfStudy),
-                setQueryRange("tuition", courseSearch.tuition),
-                setEqualQuery("attendance", courseSearch.attendance),
-                setEqualQuery("duration", courseSearch.duration));
+        Document query = new Document();
+
+        MongoUtil.appendIfNotNull(query, "country", courseSearch.country);
+        MongoUtil.appendIfNotNull(query,"city", courseSearch.city);
+        MongoUtil.appendIfNotNull(query,"field", courseSearch.fieldOfStudy);
+        //MongoUtil.appendIfNotNull(query,"tuition", courseSearch.tuition);
+        MongoUtil.appendIfNotNull(query,"attendance", courseSearch.attendance);
+        MongoUtil.appendIfNotNull(query,"duration", courseSearch.duration);
 
         return getCoursesFromCursor(courseCol.find(query).iterator());
     }

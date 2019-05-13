@@ -15,19 +15,13 @@ class App extends Component {
                 city: "",
                 tuition: 0,
                 //TODO: attendance & duration
-                field: {
-                    0: ""
-                    //TODO: many tags?
-                }
+                fieldOfStudy: [""]
             }],
             courseSearch: {
                 country: "",
                 city: "",
                 tuition: 0,
-                field: {
-                    0: ""
-                    //TODO: many tags?
-                }
+                fieldOfStudy: [""]
             }
         }
     }
@@ -68,8 +62,8 @@ class App extends Component {
     updateField(event, property) {
         const value = event.target.value;
         this.setState( (currentState) => {
-            if (property = "field") {
-                currentState.courseSearch[property] = {0: value}; //TODO: many fields of study
+            if (property === "fieldOfStudy") {
+                currentState.courseSearch[property] = [value]; //TODO: many fields of study
             } else {
                 currentState.courseSearch[property] = value;
             }
@@ -85,10 +79,10 @@ class App extends Component {
                     <h1 className="App-title">{this.state.message}</h1>
                 </header>
                 <div className="App-body row">
-                    <div className="col-md-6">Find your course: <input onChange={(event) => this.updateField(event, "field")} type="text"/></div>
+                    <div className="col-md-6">Find your course: <input value={this.state.courseSearch.fieldOfStudy[0]} onChange={(event) => this.updateField(event, "fieldOfStudy")} type="text"/></div>
                 </div>
                 <div className="App-body row">
-                    <div className="col-md-6">Location: <input onChange={(event) => this.updateField(event, "country")} type="text"/></div>
+                    <div className="col-md-6">Location: <input value={this.state.courseSearch.country} onChange={(event) => this.updateField(event, "country")} type="text"/></div>
                 </div>
                 <div className="App-body row">
                     <div className="col-md-12"><button className="findBtn" onClick={(event) => this.findCourse()}>Search</button></div>
