@@ -1,18 +1,19 @@
 package co.masterbridge.website.model;
 
+import java.util.List;
+
 public class CourseSearch {
 
     public String country;
-    public String fieldOfStudy;
+    public List<String> fieldOfStudy;
     public String city;
     public int tuition;
     public Course.Attendance attendance;
     public Course.Duration duration;
 
-    public CourseSearch() {
-    }
+    public CourseSearch() {}
 
-    public CourseSearch(String country, String fieldOfStudy, String city, int tuition, Course.Attendance attendance, Course.Duration duration) {
+    public CourseSearch(String country, List<String> fieldOfStudy, String city, int tuition, Course.Attendance attendance, Course.Duration duration) {
         this.country = country;
         this.fieldOfStudy = fieldOfStudy;
         this.city = city;
@@ -29,11 +30,11 @@ public class CourseSearch {
         this.country = country;
     }
 
-    public String getFieldOfStudy() {
+    public List<String> getFieldOfStudy() {
         return fieldOfStudy;
     }
 
-    public void setFieldOfStudy(String fieldOfStudy) {
+    public void setFieldOfStudy(List<String> fieldOfStudy) {
         this.fieldOfStudy = fieldOfStudy;
     }
 

@@ -50,10 +50,10 @@ public class CourseApiController {
         Course course = courseService.getCourseById(id);
         if (course != null) {
             courseService.updateCourse(id, newCourse);
-            return course;
         } else {
-            throw new CourseNotExistException();
+            createCourse(newCourse);
         }
+        return course;
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")

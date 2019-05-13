@@ -11,9 +11,6 @@ public class Application {
     public static void main(String[] args) {
 
         SpringApplication.run(Application.class, args);
-
-        //DataSource dataSource = DataSourceUtil.getDataSourceInPath();
-        //ScriptUtils.executeSqlScript(dataSource.getConnection(), new ClassPathResource("sql-scripts/university_schema.sql"));
     }
 
     /**@Bean

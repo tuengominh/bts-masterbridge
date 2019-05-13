@@ -9,8 +9,8 @@ class App extends Component {
         super();
         this.state = {
             message: "" ,
-                courses: [{
-                course_name: "",
+            courses: [{
+                name: "",
                 country: "",
                 city: "",
                 tuition: 0,
@@ -46,7 +46,6 @@ class App extends Component {
             });
     };
 
-
     getAll() {
         fetch("/api/courses")
             .then(response => {
@@ -70,7 +69,7 @@ class App extends Component {
         const value = event.target.value;
         this.setState( (currentState) => {
             if (property = "field") {
-                currentState.courseSearch[property] = {0: value};
+                currentState.courseSearch[property] = {0: value}; //TODO: many fields of study
             } else {
                 currentState.courseSearch[property] = value;
             }
