@@ -8,8 +8,8 @@ class App extends Component {
     constructor(props) {
         super();
         this.state = {
-            message: "",
-            courses: [{
+            message: "" /**,
+                courses: [{
                 course_name: "",
                 country: "",
                 city: "",
@@ -20,7 +20,7 @@ class App extends Component {
                     //TODO: many tags?
                 }
             }],
-            courseSearches: [{
+            courseSearch: {
                 country: "",
                 city: "",
                 tuition: 0,
@@ -28,14 +28,14 @@ class App extends Component {
                     0: ""
                     //TODO: many tags?
                 }
-            }]
+            } */
         }
     }
 
     componentDidMount() {
         setInterval(this.hello, 250);
-        this.findCourse();
-        this.getAll();
+        //this.findCourse();
+        //this.getAll();
     }
 
     hello = () => {
@@ -46,6 +46,7 @@ class App extends Component {
             });
     };
 
+    /**
     getAll() {
         fetch("/api/courses")
             .then(response => {
@@ -82,7 +83,7 @@ class App extends Component {
             }
             return currentState;
         } );
-    }
+    }*/
 
     render() {
         return (
@@ -91,17 +92,14 @@ class App extends Component {
                     <img src={logo} className="App-logo" alt="logo"/>
                     <h1 className="App-title">{this.state.message}</h1>
                 </header>
-                <div>
-                    <div>Find your course: <input onChange={(event) => this.updateField(event, "field")} type="text"/></div>
-                    <div>Find your course: <input onChange={(event) => this.updateField(event, "country")} type="text"/></div>
-                    <div><button className="findBtn" onClick={(event) => this.findCourse()}>Search</button></div>
+                <div className="App-body row">
+                    <div className="col-md-6">Find your course: <input onChange={(event) => this.updateField(event, "field")} type="text"/></div>
                 </div>
-                <div>
-                    <ul>
-                        {this.state.courses.map(course => (
-                            <li className="course">{course}</li>
-                        ))}
-                    </ul>
+                <div className="App-body row">
+                    <div className="col-md-6">Location: <input onChange={(event) => this.updateField(event, "country")} type="text"/></div>
+                </div>
+                <div className="App-body row">
+                    <div className="col-md-12"><button className="findBtn" onClick={(event) => this.findCourse()}>Search</button></div>
                 </div>
             </div>
         );
