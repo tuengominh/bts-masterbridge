@@ -48,7 +48,7 @@ public class CourseRepositoryMongo implements CourseRepository {
         MongoUtil.appendIfNotNull(query, "country", courseSearch.country);
         MongoUtil.appendIfNotNull(query,"city", courseSearch.city);
         MongoUtil.appendIfNotNull(query,"field", courseSearch.fieldOfStudy);
-        //MongoUtil.appendIfNotNull(query,"tuition", courseSearch.tuition);
+        //TODO: MongoUtil.appendIfNotNull(query,"tuition", courseSearch.tuition);
         MongoUtil.appendIfNotNull(query,"attendance", courseSearch.attendance);
         MongoUtil.appendIfNotNull(query,"duration", courseSearch.duration);
 
@@ -109,21 +109,5 @@ public class CourseRepositoryMongo implements CourseRepository {
         }
         coursesCursor.close();
         return courses;
-    }
-
-    private Document setEqualQuery(String key, Object value) {
-        if (value != null) {
-            return (Document) eq(key, value);
-        } else {
-            return doc();
-        }
-    }
-
-    private Document setQueryRange(String key, Object maxValue) {
-        if (maxValue != null) {
-                return (Document) and(gt(key, 0), lt(key, maxValue));
-            } else {
-            return doc();
-        }
     }
 }

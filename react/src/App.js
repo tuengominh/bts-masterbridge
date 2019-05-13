@@ -63,7 +63,7 @@ class App extends Component {
         const value = event.target.value;
         this.setState( (currentState) => {
             if (property === "fieldOfStudy") {
-                currentState.courseSearch[property] = [value]; //TODO: many fields of study
+                currentState.courseSearch[property] = [value]; //TODO: select many fields of study
             } else {
                 currentState.courseSearch[property] = value;
             }
