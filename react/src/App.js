@@ -8,7 +8,7 @@ class App extends Component {
     constructor(props) {
         super();
         this.state = {
-            message: "" /**,
+            message: "" ,
                 courses: [{
                 course_name: "",
                 country: "",
@@ -28,14 +28,14 @@ class App extends Component {
                     0: ""
                     //TODO: many tags?
                 }
-            } */
+            }
         }
     }
 
     componentDidMount() {
         setInterval(this.hello, 250);
-        //this.findCourse();
-        //this.getAll();
+        this.findCourse();
+        this.getAll();
     }
 
     hello = () => {
@@ -46,7 +46,7 @@ class App extends Component {
             });
     };
 
-    /**
+
     getAll() {
         fetch("/api/courses")
             .then(response => {
@@ -57,14 +57,7 @@ class App extends Component {
     }
 
     findCourse() {
-        const courseSearch = {
-            country: this.state.courseSearches.country,
-            city: this.state.courseSearches.city,
-            tuition: this.state.courseSearches.tuition,
-            field: this.state.courseSearches.field
-        }
-
-        axios.post("/api/find", courseSearch)
+        axios.post("/api/courses/find", this.state.courseSearch)
             .then(response => {
                 const queriedCourses = response.data;
                 this.setState(
@@ -77,13 +70,13 @@ class App extends Component {
         const value = event.target.value;
         this.setState( (currentState) => {
             if (property = "field") {
-                currentState.courseSearches[property] = {0: value};
+                currentState.courseSearch[property] = {0: value};
             } else {
-                currentState.user[property] = value;
+                currentState.courseSearch[property] = value;
             }
             return currentState;
         } );
-    }*/
+    }
 
     render() {
         return (

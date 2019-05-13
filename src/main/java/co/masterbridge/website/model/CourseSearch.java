@@ -9,6 +9,9 @@ public class CourseSearch {
     public Course.Attendance attendance;
     public Course.Duration duration;
 
+    public CourseSearch() {
+    }
+
     public CourseSearch(String country, String fieldOfStudy, String city, int tuition, Course.Attendance attendance, Course.Duration duration) {
         this.country = country;
         this.fieldOfStudy = fieldOfStudy;

@@ -1,13 +1,15 @@
 package co.masterbridge.website.model;
 
+import java.util.List;
+
 public class Course {
 
-    private long courseId;
-    private long schoolId;
+    private String courseId;
+    private String schoolId;
     private String courseName;
     private String country; //TODO: dropdown list
     private String city; //TODO: dropdown list
-    private String fieldOfStudy; //TODO: case sensitive
+    private List<String> fieldOfStudy; //TODO: case sensitive
     private int tuition;
     private Attendance attendance;
     private Duration duration;
@@ -26,7 +28,7 @@ public class Course {
 
     public Course() {}
 
-    public Course(long courseId, long schoolId, String courseName, String country, String city, String fieldOfStudy, int tuition, Attendance attendance, Duration duration) {
+    public Course(String courseId, String schoolId, String courseName, String country, String city, List<String> fieldOfStudy, int tuition, Attendance attendance, Duration duration) {
         this.courseId = courseId;
         this.schoolId = schoolId;
         this.courseName = courseName;
@@ -38,19 +40,19 @@ public class Course {
         this.duration = duration;
     }
 
-    public long getCourseId() {
+    public String getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(long courseId) {
+    public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
 
-    public long getSchoolId() {
+    public String getSchoolId() {
         return schoolId;
     }
 
-    public void setSchoolId(long schoolId) {
+    public void setSchoolId(String schoolId) {
         this.schoolId = schoolId;
     }
 
@@ -78,11 +80,11 @@ public class Course {
         this.city = city;
     }
 
-    public String getFieldOfStudy() {
+    public List<String> getFieldOfStudy() {
         return fieldOfStudy;
     }
 
-    public void setFieldOfStudy(String fieldOfStudy) {
+    public void setFieldOfStudy(List<String> fieldOfStudy) {
         this.fieldOfStudy = fieldOfStudy;
     }
 

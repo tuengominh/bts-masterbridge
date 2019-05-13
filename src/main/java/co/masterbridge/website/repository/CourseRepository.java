@@ -9,15 +9,15 @@ public interface CourseRepository {
 
         Collection<Course> getAll();
 
-        Course getById(long id);
+        Course getById(String id);
 
         void create(Course course);
 
         Collection<Course> find(CourseSearch courseSearch);
 
-        void update(long id, Course course);
+        void update(String id, Course course);
 
-        void remove(long id);
+        void remove(String id);
 
         void storeInput(CourseSearch courseSearch);
 }

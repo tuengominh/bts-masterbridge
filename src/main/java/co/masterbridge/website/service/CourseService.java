@@ -22,7 +22,7 @@ public class CourseService {
         return courseRepository.getAll();
     }
 
-    public Course getCourseById(long id) { return courseRepository.getById(id); }
+    public Course getCourseById(String id) { return courseRepository.getById(id); }
 
     public Course createCourse(Course course) {
         courseRepository.create(course);
@@ -34,9 +34,9 @@ public class CourseService {
         return courseRepository.find(courseSearch);
     }
 
-    public void updateCourse(long id, Course course) {
+    public void updateCourse(String id, Course course) {
         courseRepository.update(id, course); }
 
-    public void removeCourse(long id) {
+    public void removeCourse(String id) {
         courseRepository.remove(id);}
 }

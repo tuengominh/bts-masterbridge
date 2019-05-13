@@ -31,7 +31,7 @@ public class CourseRepositoryMongo implements CourseRepository {
     }
 
     @Override
-    public Course getById(long id) {
+    public Course getById(String id) {
         return getCourseFromDoc(courseCol.find(eq("_id", id)).first());
     }
 
@@ -65,23 +65,23 @@ public class CourseRepositoryMongo implements CourseRepository {
     }
 
     @Override
-    public void update(long id, Course course) {
+    public void update(String id, Course course) {
         courseCol.updateOne(eq("_id", id), getDocFromCourse(course));
     }
 
     @Override
-    public void remove(long id) {
+    public void remove(String id) {
         courseCol.deleteOne(eq("_id", id));
     }
 
     private Course getCourseFromDoc(Document doc) {
         return new Course(
-                doc.getInteger("_id"),
-                doc.getInteger("school_id"),
+                doc.getObjectId("_id").toString(),
+                null, // TODO doc.getObjectId("school_id").toString()
                 doc.getString("course_name"),
                 doc.getString("country"),
                 doc.getString("city"),
-                doc.getString("field"),
+                doc.getList("field", String.class),
                 doc.getInteger("tuition"),
                 (Course.Attendance) doc.get("attendance"),
                 (Course.Duration) doc.get("duration")
