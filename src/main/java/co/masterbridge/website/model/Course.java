@@ -40,6 +40,17 @@ public class Course {
         this.duration = duration;
     }
 
+    public Course(String schoolId, String courseName, String country, String city, List<String> fieldOfStudy, int tuition, Attendance attendance, Duration duration) {
+        this.schoolId = schoolId;
+        this.courseName = courseName;
+        this.country = country;
+        this.city = city;
+        this.fieldOfStudy = fieldOfStudy;
+        this.tuition = tuition;
+        this.attendance = attendance;
+        this.duration = duration;
+    }
+
     public String getCourseId() {
         return courseId;
     }
