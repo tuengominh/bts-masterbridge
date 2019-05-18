@@ -1,6 +1,7 @@
 package co.masterbridge.website.service;
 
 import co.masterbridge.website.model.User;
+import co.masterbridge.website.model.UserLogin;
 import co.masterbridge.website.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,11 @@ public class UserService {
     public void updateUser(String id, User user) {
         userRepository.update(id, user); }
 
-    public boolean login(User user) {
-        return userRepository.login(user);
+    public boolean login(UserLogin userLogin) {
+        boolean isValid = false;
+        if (userRepository.login(userLogin) != null) {
+            isValid = true;
+        }
+        return isValid;
     }
 }

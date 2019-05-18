@@ -1,6 +1,7 @@
 package co.masterbridge.website.repository;
 
 import co.masterbridge.website.model.User;
+import co.masterbridge.website.model.UserLogin;
 
 import java.util.Collection;
 
@@ -14,5 +15,5 @@ public interface UserRepository {
 
     void update(String id, User user);
 
-    boolean login(User user);
+    User login(UserLogin userLogin);
 }

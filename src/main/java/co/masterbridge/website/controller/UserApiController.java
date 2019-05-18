@@ -1,9 +1,8 @@
 package co.masterbridge.website.controller;
 
 import co.masterbridge.website.exception.NotExistException;
-import co.masterbridge.website.model.Course;
-import co.masterbridge.website.model.CourseSearch;
 import co.masterbridge.website.model.User;
+import co.masterbridge.website.model.UserLogin;
 import co.masterbridge.website.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,7 +57,13 @@ public class UserApiController {
     }
 
     @RequestMapping(method = POST, path = "/login")
-    public boolean login(@RequestBody User user) {
-        return userService.login(user);
+    public String login(@RequestBody UserLogin userLogin) {
+        String message = "";
+        if (userService.login(userLogin)) {
+            message += "Logged in successful!";
+        } else {
+            message += "Invalid information!";
+        }
+        return message;
     }
 }

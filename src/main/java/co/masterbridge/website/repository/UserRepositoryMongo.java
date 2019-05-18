@@ -1,6 +1,10 @@
 package co.masterbridge.website.repository;
 
+import co.masterbridge.website.model.Course;
+import co.masterbridge.website.model.CourseSearch;
 import co.masterbridge.website.model.User;
+import co.masterbridge.website.model.UserLogin;
+import co.masterbridge.website.util.MongoUtil;
 import com.mongodb.client.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -43,14 +47,13 @@ public class UserRepositoryMongo implements UserRepository{
     }
 
     @Override
-    public boolean login(User user) {
-        boolean isValid = false;
-        for (User userDB : getAll()) {
-            if (userDB.getEmail().equals(user.getEmail()) && userDB.getPassword().equals(user.getPassword())) {
-                isValid = true;
-            }
-        }
-        return isValid;
+    public User login(UserLogin userLogin) {
+        Document query = new Document();
+
+        MongoUtil.appendIfNotNull(query, "email", userLogin.email);
+        MongoUtil.appendIfNotNull(query,"password", userLogin.password);
+
+        return getUserFromDoc(userCol.find(query).first());
     }
 
     private Collection<User> getUsersFromCursor(MongoCursor<Document> usersCursor) {
