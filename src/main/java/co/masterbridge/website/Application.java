@@ -14,7 +14,7 @@ public class Application {
     }
 
     /**@Bean
-    public CommandLineRunner test(
+    static CommandLineRunner test(
             CourseService courseService,
             CourseRepository courseRepository) {
 
