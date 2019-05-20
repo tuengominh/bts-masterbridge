@@ -1,6 +1,7 @@
 package co.masterbridge.website.controller;
 
-import co.masterbridge.website.exception.NotExistException;
+import co.masterbridge.website.exception.NotFoundException;
+import co.masterbridge.website.exception.UnauthorizedException;
 import co.masterbridge.website.model.User;
 import co.masterbridge.website.model.UserLogin;
 import co.masterbridge.website.service.UserService;
@@ -31,12 +32,12 @@ public class UserApiController {
     }
 
     @RequestMapping(method = GET, path = "/{id}")
-    public User getUserById(@PathVariable String id) throws NotExistException {
+    public User getUserById(@PathVariable String id) throws NotFoundException {
         User user = userService.getUserById(id);
         if (user != null) {
             return user;
         } else {
-            throw new NotExistException();
+            throw new NotFoundException();
         }
     }
 
@@ -58,12 +59,10 @@ public class UserApiController {
 
     @RequestMapping(method = POST, path = "/login")
     public String login(@RequestBody UserLogin userLogin) {
-        String message = "";
         if (userService.login(userLogin)) {
-            message += "Logged in successful!";
+            return "Logged in successful!";
         } else {
-            message += "Invalid information!";
+            throw new UnauthorizedException();
         }
-        return message;
     }
 }

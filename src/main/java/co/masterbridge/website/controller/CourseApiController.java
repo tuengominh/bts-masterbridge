@@ -1,6 +1,6 @@
 package co.masterbridge.website.controller;
 
-import co.masterbridge.website.exception.NotExistException;
+import co.masterbridge.website.exception.NotFoundException;
 import co.masterbridge.website.model.Course;
 import co.masterbridge.website.model.CourseSearch;
 import co.masterbridge.website.service.CourseService;
@@ -28,12 +28,12 @@ public class CourseApiController {
     }
 
     @RequestMapping(method = GET, path = "/{id}")
-    public Course getCourseById(@PathVariable String id) throws NotExistException {
+    public Course getCourseById(@PathVariable String id) throws NotFoundException {
         Course course = courseService.getCourseById(id);
         if (course != null) {
             return course;
         } else {
-            throw new NotExistException();
+            throw new NotFoundException();
         }
     }
 
