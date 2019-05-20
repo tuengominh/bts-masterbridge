@@ -79,7 +79,7 @@ public class CourseRepositoryMongo implements CourseRepository {
     private Course getCourseFromDoc(Document doc) {
         return new Course(
                 doc.getObjectId("_id").toString(),
-                null, // TODO doc.getObjectId("school_id").toString()
+                doc.getObjectId("school_id").toString(),
                 doc.getString("course_name"),
                 doc.getString("country"),
                 doc.getString("city"),

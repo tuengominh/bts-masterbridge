@@ -69,4 +69,5 @@ public class CourseSearch {
     public void setDuration(Course.Duration duration) {
         this.duration = duration;
     }
+
 }

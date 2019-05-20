@@ -6,7 +6,7 @@ public class User {
     private String email;
     private String password; //TODO: security risks
     private String userName;
-    //TODO: private List<CourseSearch> searches;
+    //TODO: private List<CourseSearch> searches = new ArrayList<>();
 
     public User(){}
 
@@ -15,7 +15,7 @@ public class User {
         this.password = password;
     }
 
-    public User(String email, String password, String userId, String userName) {
+    public User(String userId, String email, String password, String userName) {
         this.email = email;
         this.password = password;
         this.userId = userId;
@@ -53,4 +53,5 @@ public class User {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
 }
