@@ -1,6 +1,8 @@
 # IntelliJ
-.idea
+.idea/
 *.iml
 
-
+# Node
+react/node_modules
+target/
 
