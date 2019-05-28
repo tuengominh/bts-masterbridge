@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import logo from './logo.png';
 import './App.css';
 
-class App extends Component {
+class Home extends Component {
 
     constructor(props) {
         super();
@@ -27,18 +26,9 @@ class App extends Component {
     }
 
     componentDidMount() {
-        setInterval(this.hello, 250);
         this.findCourse();
         this.getAll();
     }
-
-    hello = () => {
-        fetch('/api/hello')
-            .then(response => response.text())
-            .then(message => {
-                this.setState({message: message});
-            });
-    };
 
     getAll() {
         fetch("/api/courses")
@@ -74,10 +64,6 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <h1 className="App-title">{this.state.message}</h1>
-                </header>
                 <div className="App-body row">
                     <div className="col-md-6">Find your course: <input value={this.state.courseSearch.fieldOfStudy[0]} onChange={(event) => this.updateField(event, "fieldOfStudy")} type="text"/></div>
                 </div>
@@ -92,4 +78,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default Home;
