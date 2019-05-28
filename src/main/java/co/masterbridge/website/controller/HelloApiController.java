@@ -17,6 +17,6 @@ public class HelloApiController {
 
     @RequestMapping(method = GET, path = "/{name}")
     public String helloName(@PathVariable String name) {
-        return "Hello " + name + "!";
+        return "Welcome back " + name + "!";
     }
 }

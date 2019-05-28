@@ -15,7 +15,7 @@ class HelloName extends Component {
     }
 
     hello = () => {
-        fetch('/api/hello/' + this.props.match.params.name)
+        fetch('/api/hello/' + this.props.name) //this.props.match.params.name
             .then(response => response.text())
             .then(message => {
                 this.setState({message: message});
