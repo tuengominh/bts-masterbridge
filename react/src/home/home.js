@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import '../css/App.css';
+import '../css/app.css';
 
 class Home extends Component {
 

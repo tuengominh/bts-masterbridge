@@ -1,6 +1,6 @@
 import {Component} from "react";
 import React from "react";
-import HelloFunction from "./HelloFunction";
+import HelloFunction from "./helloFunction";
 
 class Hello extends Component {
 

@@ -10,7 +10,6 @@ class Navbar extends Component {
             <nav class="menu">
                 <img src={logo} className="App-logo" alt="logo"/>
                 <Link to="/">Home</Link>
-                <Link to="/hello">Hello</Link>
             </nav>
         );
     }

@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
-import './css/App.css';
-import Home from "./home/Home";
-import Hello from "./hello/Hello";
-import HelloName from "./hello/HelloName";
-import Navbar from "./Navbar";
+import './css/app.css';
+import Home from "./home/home";
+import Hello from "./hello/hello";
+import HelloName from "./hello/helloName";
+import Navbar from "./navbar";
 
 class Main extends Component {
 
