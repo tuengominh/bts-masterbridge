@@ -1,14 +1,22 @@
 package co.masterbridge.website.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
+@RequestMapping(path = "/api/hello")
 public class HelloApiController {
-    @GetMapping("/api/hello")
+
+    @RequestMapping(method = GET)
     public String hello() {
         return "Hello from Masterbridge!";
+    }
+
+    @RequestMapping(method = GET, path = "/{name}")
+    public String helloName(@PathVariable String name) {
+        return "Hello " + name + "!";
     }
 }
