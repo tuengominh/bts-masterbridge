@@ -5,9 +5,9 @@ class Footer extends Component {
 
     render() {
         return (
-            <nav>
+            <h3 className="App-footer">
                 This is the footer.
-            </nav>
+            </h3>
         );
     }
 }

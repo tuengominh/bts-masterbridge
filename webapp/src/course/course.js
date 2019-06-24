@@ -6,7 +6,7 @@ class Course extends Component {
     render() {
         return (
             <div className="App">
-                The course content.
+                <h1>The course content.</h1>
             </div>
         );
     }
