@@ -1,12 +1,17 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
+import background from "../img/background.jpeg";
 
 class Home extends Component {
     render() {
         return (
-            <div>
-                <h1>Homepage is here</h1>
-                <p>Some content here</p>
+            <div className="App-background" style={{
+                backgroundImage: `url(${background})`,
+                backgroundPosition: 'top',
+                backgroundOrigin: 'border-box',
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+            }}>
                 <div>
                     <Link to="search">Search something</Link>
                 </div>

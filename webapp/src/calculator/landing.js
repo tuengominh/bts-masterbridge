@@ -1,11 +1,20 @@
 import React, {Component} from 'react';
+import background from "../img/calc.jpg";
+import {Link} from "react-router-dom";
 
 class Calculator extends Component {
     render() {
         return (
-            <div>
-                <h1>Calculator landing is here</h1>
-                <p>Some content here</p>
+            <div className="App-background" style={{
+                backgroundImage: `url(${background})`,
+                backgroundPosition: 'top',
+                backgroundOrigin: 'border-box',
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+            }}>
+                <div>
+                    <Link to="search">Search something</Link>
+                </div>
             </div>
         );
     }
